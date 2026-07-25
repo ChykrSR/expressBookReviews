@@ -76,6 +76,15 @@ public_users.get('/review/:isbn',function (req, res) {
     }
 });
 
+public_users.get('/async-books', async function (req, res) {
+    try {
+        const response = await axios.get('http://localhost:5000/');
+        return res.status(200).json(response.data);
+    } catch (error) {
+        return res.status(500).json({ message: "Error fetching books using Axios", error: error.message });
+    }
+});
+
 const getBookByIsbnAsync = async (isbn) => {
     try {
         const response = await axios.get(`http://localhost:5000/isbn/${isbn}`);
