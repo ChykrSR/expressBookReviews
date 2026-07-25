@@ -35,13 +35,19 @@ public_users.get('/isbn/:isbn',function (req, res) {
  });
 
 // Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-  //Write your code here
+// Task 3: Get book details based on author
+public_users.get('/author/:author', function (req, res) {
   const author = req.params.author;
   let booksByAuthor = [];
-  for (let key in books) {
-      if (books[key].author === author) {
-          booksByAuthor.push(books[key]);
+  
+  for (let isbn in books) {
+      if (books[isbn].author === author) {
+          booksByAuthor.push({
+              "isbn": isbn,
+              "author": books[isbn].author,
+              "title": books[isbn].title,
+              "reviews": books[isbn].reviews
+          });
       }
   }
   return res.status(200).json(booksByAuthor);
